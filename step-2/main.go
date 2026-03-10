@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"sort"
 	"strings"
 )
 
@@ -12,8 +13,6 @@ func printHelp() {
 	fmt.Println("  dfs    : Tim kiem chieu sau (Mu)")
 	fmt.Println("  bfs    : Tim kiem chieu rong (Mu)")
 	fmt.Println("  min    : Greedy Min (Thong minh)")
-	fmt.Println("  hill   : Hill Climbing (Thong minh)")
-	fmt.Println("  astar  : A* Search (Thong minh nhat)")
 	fmt.Println("  all    : Chay tat ca thuat toan")
 }
 
@@ -33,43 +32,54 @@ func runAlgo(algo string, g Graph, h Heuristic, from, to string) {
 }
 
 func main() {
-	G := Graph{
-		"A": {"B", "C"},
-		"B": {"D", "E"},
-		"C": {"F", "G"},  
-		"D": {"H", "I"},
-		"E": {"J", "K"},
-		"F": {"L", "M"},
-		"H": {"N", "O"},  
-		"I": {"P", "Q"},
-		"J": {"R", "S"},
-		"K": {"T", "U"},
-		"L": {"V", "W"},
-		"M": {"X", "Y"}
+	g := Graph{
+		"A": {"B": 1, "C": 1},
+		"B": {"D": 1, "E": 1},
+		"C": {"F": 1, "G": 1},
+		"D": {"H": 1, "I": 1},
+		"E": {"J": 1, "K": 1},
+		"F": {"L": 1, "M": 1},
+		"H": {"N": 1, "O": 1},
+		"I": {"P": 1, "Q": 1},
+		"J": {"R": 1, "S": 1},
+		"K": {"T": 1, "U": 1},
+		"L": {"V": 1, "W": 1},
+		"M": {"X": 1, "Y": 1},
 	}
 
 	isAnd := IsAnd{
 		"A": false,
 		"B": true,
-		"C": true,  
+		"C": true,
 		"D": false,
 		"E": false,
 		"F": false,
-		"H": true,  
+		"H": true,
 		"I": true,
 		"J": true,
 		"K": true,
 		"L": true,
-		"M": true
+		"M": true,
 	}
 
 	h := Heuristic{
-		"N": 0, "O": 0, "P": 2, "Q": 2, 
-		"R": 0, "S": 0, "T": 3, "U": 2, 
+		"N": 0, "O": 0, "P": 2, "Q": 2,
+		"R": 0, "S": 0, "T": 3, "U": 2,
 		"V": 3, "W": 2, "X": 2, "Y": 2,
 		"G": 0,
 	}
-	genHeuristic(g, isAnd, &h, 1)
+	genHeuristic(g, isAnd, h, 1)
+	keys := make([]string, 0, len(h))
+	for k := range h {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
+	fmt.Println("Bang gia tri Heuristic:")
+	for _, k := range keys {
+		fmt.Printf("%s: %d | ", k, h[k])
+	}
+	fmt.Println()
 
 	args := os.Args[1:]
 	if len(args) < 2 {
