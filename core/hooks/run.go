@@ -16,7 +16,7 @@ func PrintHelp() {
 	fmt.Println("  bfs    : Tim kiem chieu rong (Mu)")
 	fmt.Println("  min    : Greedy Min (Thong minh)")
 	fmt.Println("  all    : Chay tat ca thuat toan")
-	fmt.Println("  A*     : A* Search")
+	fmt.Println("  as     : A* Search")
 	fmt.Println("  hill   : Hill Climbing")
 	fmt.Println("--------Logic menh de--------")
 	fmt.Println("  fc     : Forward Chaining (Suy dien tien)")
@@ -43,7 +43,7 @@ func RunAlgo(algo string, g types.Graph, h types.Heuristic, from, to string, log
 	case "min":
 		res = a.GreedySearch(g, h, from, to, false)
 		logicFlag = false
-	case "A*":
+	case "as":
 		res = a.AStar(g, h, from, to)
 		logicFlag = false
 	case "hill":
