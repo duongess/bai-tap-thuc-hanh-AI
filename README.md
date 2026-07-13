@@ -75,7 +75,7 @@ a \land b \rightarrow f
 2. **Chạy chương trình:**
 Sử dụng lệnh `go run` từ thư mục gốc của dự án:
 ```bash
-go run .
+go run ./cli
 
 ```
 
