@@ -1,7 +1,8 @@
-package config
+package hooks
 
 import (
 	"bai-tap-ai/core/algorithm"
+	"bai-tap-ai/core/types"
 	"fmt"
 	"strings"
 )
@@ -15,7 +16,7 @@ func PrintHelp() {
 	fmt.Println("  all    : Chay tat ca thuat toan")
 }
 
-func RunAlgo(algo string, g Graph, h Heuristic, from, to string) {
+func RunAlgo(algo string, g types.Graph, h types.Heuristic, from, to string) {
 	var res []string
 	switch algo {
 	case "dfs":

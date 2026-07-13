@@ -2,6 +2,7 @@ package main
 
 import (
 	"bai-tap-ai/core/config"
+	"bai-tap-ai/core/hooks"
 	"fmt"
 	"os"
 	"sort"
@@ -25,7 +26,7 @@ func main() {
 
 	args := os.Args[1:]
 	if len(args) < 2 {
-		config.PrintHelp()
+		hooks.PrintHelp()
 		return
 	}
 
@@ -40,9 +41,9 @@ func main() {
 	if algo == "all" {
 		algos := []string{"dfs", "bfs", "min"}
 		for _, a := range algos {
-			config.RunAlgo(a, g, h, from, to)
+			hooks.RunAlgo(a, g, h, from, to)
 		}
 	} else {
-		config.RunAlgo(algo, g, h, from, to)
+		hooks.RunAlgo(algo, g, h, from, to)
 	}
 }
