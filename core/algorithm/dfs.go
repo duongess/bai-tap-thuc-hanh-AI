@@ -1,15 +1,20 @@
-package main
+package algorithm
 
-func DFS(g Graph, start, goal string) []string {
+import (
+	"bai-tap-ai/core/config"
+	"bai-tap-ai/core/types"
+)
+
+func DFS(g types.Graph, start, goal string) []string {
 	return _DFS(g, start, goal, make(map[string]bool))
 }
 
-func _DFS(g Graph, start, goal string, visited map[string]bool) []string {
+func _DFS(g types.Graph, start, goal string, visited types.IsAnd) []string {
 	if start == goal {
 		return []string{start}
 	}
 	visited[start] = true
-	neighbors := getSortedNeighbors(g[start])
+	neighbors := config.GetSortedNeighbors(g[start])
 	for _, next := range neighbors {
 		if !visited[next] {
 			path := _DFS(g, next, goal, visited)

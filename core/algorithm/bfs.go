@@ -1,6 +1,11 @@
-package main
+package algorithm
 
-func BFS(g Graph, start, goal string) []string {
+import (
+	"bai-tap-ai/core/config"
+	"bai-tap-ai/core/types"
+)
+
+func BFS(g types.Graph, start, goal string) []string {
 	queue := [][]string{{start}}
 	visited := map[string]bool{start: true}
 
@@ -13,7 +18,7 @@ func BFS(g Graph, start, goal string) []string {
 			return path
 		}
 
-		for _, next := range getSortedNeighbors(g[node]) {
+		for _, next := range config.GetSortedNeighbors(g[node]) {
 			if !visited[next] {
 				visited[next] = true
 				newPath := append([]string{}, path...)

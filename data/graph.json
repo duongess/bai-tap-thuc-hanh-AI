@@ -1,0 +1,14 @@
+{
+    "A": {"path": {"B": 1, "C": 1}, "isAnd": [], "heuristic": 10},
+    "B": {"path": {"D": 1, "E": 1}, "isAnd": ["D", "E"], "heuristic": 8},
+    "C": {"path": {"F": 1, "G": 1}, "isAnd": [], "heuristic": 7},
+    "D": {"path": {"H": 1, "I": 1}, "isAnd": [], "heuristic": 6},
+    "E": {"path": {"J": 1, "K": 1}, "isAnd": [], "heuristic": 5},
+    "F": {"path": {"L": 1, "M": 1}, "isAnd": [], "heuristic": 4},
+    "H": {"path": {"N": 1, "O": 1}, "isAnd": [], "heuristic": 0},
+    "I": {"path": {"P": 1, "Q": 1}, "isAnd": [], "heuristic": 2},
+    "J": {"path": {"R": 1, "S": 1}, "isAnd": [], "heuristic": 0},
+    "K": {"path": {"T": 1, "U": 1}, "isAnd": [], "heuristic": 2},
+    "L": {"path": {"V": 1, "W": 1}, "isAnd": [], "heuristic": 3},
+    "M": {"path": {"X": 1, "Y": 1}, "isAnd": [], "heuristic": 2}
+}

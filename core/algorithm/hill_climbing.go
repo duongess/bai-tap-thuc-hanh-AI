@@ -1,11 +1,16 @@
-package main
+package algorithm
 
-func HillClimbing(g Graph, h Heuristic, start, goal string) []string {
+import (
+	"bai-tap-ai/core/config"
+	"bai-tap-ai/core/types"
+)
+
+func HillClimbing(g types.Graph, h types.Heuristic, start, goal string) []string {
 	current := start
 	path := []string{current}
 
 	for current != goal {
-		neighbors := getSortedNeighbors(g[current])
+		neighbors := config.GetSortedNeighbors(g[current])
 		if len(neighbors) == 0 {
 			break
 		}

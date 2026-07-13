@@ -1,6 +1,10 @@
-package main
+package algorithm
 
-func AStar(g Graph, h Heuristic, start, goal string) []string {
+import (
+	"bai-tap-ai/core/types"
+)
+
+func AStar(g types.Graph, h types.Heuristic, start, goal string) []string {
 	openSet := []string{start}
 	gScore := make(map[string]int)
 	gScore[start] = 0
