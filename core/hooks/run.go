@@ -1,7 +1,7 @@
 package hooks
 
 import (
-	"bai-tap-ai/core/algorithm"
+	algorithm "bai-tap-ai/core/algorithm/path_finding"
 	"bai-tap-ai/core/types"
 	"fmt"
 	"strings"
@@ -10,12 +10,18 @@ import (
 func PrintHelp() {
 	fmt.Println("Usage: go run . <algo> <from> <to>")
 	fmt.Println("\nAlgorithms:")
+	fmt.Println("--------Tim duong--------")
 	fmt.Println("  dfs    : Tim kiem chieu sau (Mu)")
 	fmt.Println("  bfs    : Tim kiem chieu rong (Mu)")
 	fmt.Println("  min    : Greedy Min (Thong minh)")
 	fmt.Println("  all    : Chay tat ca thuat toan")
 	fmt.Println("  A*     : A* Search")
 	fmt.Println("  hill   : Hill Climbing")
+	fmt.Println("--------Logic menh de--------")
+	fmt.Println("  fc     : Forward Chaining (Suy dien tien)")
+	fmt.Println("  bc     : Backward Chaining (Suy dien lui)")
+	fmt.Println("  wa     : Vuong Hao")
+	fmt.Println("  r      : Robinson")
 	fmt.Println("  Other commands:")
 	fmt.Println("  h/help : Hien thi huong dan")
 	fmt.Println("  q/quit : Thoat khoi chuong trinh")

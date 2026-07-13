@@ -10,6 +10,13 @@ import (
 )
 
 func main() {
+	logic, err := config.LoadLogicConfig()
+	if err != nil {
+		fmt.Println("Loi doc file logic config:", err)
+		return
+	}
+	fmt.Println(logic.String())
+	return
 	// 1. Doc file cau hinh mot lan o dau chuong trinh
 	rawConfig, err := config.LoadGraphConfig()
 	if err != nil {
