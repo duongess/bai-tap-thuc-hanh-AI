@@ -2,6 +2,8 @@ package config
 
 import (
 	"bai-tap-ai/core/types"
+	"encoding/json"
+	"os"
 	"sort"
 )
 
@@ -44,6 +46,21 @@ func ComputeH(node string, g types.Graph, isAnd types.IsAnd, h types.Heuristic, 
 
 	h[node] = result
 	return result
+}
+
+func LoadGraphConfig() (types.GraphConfig, error) {
+	file, err := os.Open(GraphConfigFile)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	var graphConfig types.GraphConfig
+	if err := json.NewDecoder(file).Decode(&graphConfig); err != nil {
+		return nil, err
+	}
+
+	return graphConfig, nil
 }
 
 func ConvertToCore(cfg types.GraphConfig) (types.Graph, types.IsAnd, types.Heuristic) {

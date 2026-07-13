@@ -10,7 +10,12 @@ import (
 )
 
 func main() {
-	g, isAnd, h := config.ConvertToCore()
+	graphConfig, err := config.LoadGraphConfig()
+	if err != nil {
+		fmt.Println("Loi khi doc file cau hinh:", err)
+		return
+	}
+	g, isAnd, h := config.ConvertToCore(graphConfig)
 	config.GenHeuristic(g, isAnd, h, 1)
 	keys := make([]string, 0, len(h))
 	for k := range h {
