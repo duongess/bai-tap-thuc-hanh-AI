@@ -1,7 +1,8 @@
 package hooks
 
 import (
-	algorithm "bai-tap-ai/core/algorithm/path_finding"
+	a "bai-tap-ai/core/algorithm/path_finding"
+	s "bai-tap-ai/core/algorithm/sentential_logic"
 	"bai-tap-ai/core/types"
 	"fmt"
 	"strings"
@@ -27,19 +28,31 @@ func PrintHelp() {
 	fmt.Println("  q/quit : Thoat khoi chuong trinh")
 }
 
-func RunAlgo(algo string, g types.Graph, h types.Heuristic, from, to string) {
+func RunAlgo(algo string, g types.Graph, h types.Heuristic, from, to string, logic types.Logic) {
 	var res []string
+	var logicFlag, match bool
+	match = false
+
 	switch algo {
 	case "dfs":
-		res = algorithm.DFS(g, from, to)
+		res = a.DFS(g, from, to)
+		logicFlag = false
 	case "bfs":
-		res = algorithm.BFS(g, from, to)
+		res = a.BFS(g, from, to)
+		logicFlag = false
 	case "min":
-		res = algorithm.GreedySearch(g, h, from, to, false)
+		res = a.GreedySearch(g, h, from, to, false)
+		logicFlag = false
 	case "A*":
-		res = algorithm.AStar(g, h, from, to)
+		res = a.AStar(g, h, from, to)
+		logicFlag = false
 	case "hill":
-		res = algorithm.HillClimbing(g, h, from, to)
+		res = a.HillClimbing(g, h, from, to)
+		logicFlag = false
+
+	case "fc":
+		match = s.ForwardChaining(logic)
+		logicFlag = true
 	case "h", "help":
 		PrintHelp()
 		return
@@ -48,5 +61,13 @@ func RunAlgo(algo string, g types.Graph, h types.Heuristic, from, to string) {
 		fmt.Println("Sai cu phap. Vui long nhap dung 3 tham so: <algo> <from> <to>")
 		return
 	}
-	fmt.Printf("%-10s: %v\n", strings.ToUpper(algo), res)
+	if logicFlag {
+		result := "Sai"
+		if match {
+			result = "Dung"
+		}
+		fmt.Printf("%-10s: %s\n", strings.ToUpper(algo), result)
+	} else {
+		fmt.Printf("%-10s: %v\n", strings.ToUpper(algo), res)
+	}
 }

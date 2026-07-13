@@ -115,3 +115,33 @@ func (r Logic) Evaluate(facts map[string]bool) bool {
 
 	return false
 }
+
+func (r Logic) FlattenPremises() Logic {
+	var flatPremises []Node
+
+	// Hàm helper đệ quy để giải phóng các node And lồng nhau
+	var extractAnd func(Node)
+	extractAnd = func(node Node) {
+		if node == nil {
+			return
+		}
+		// Nếu gặp Node And, bẻ đôi vế trái và vế phải ra để kiểm tra tiếp
+		if andNode, ok := node.(And); ok {
+			extractAnd(andNode.Left)
+			extractAnd(andNode.Right)
+		} else {
+			// Nếu là các Node khác (Variable, Implies, Or, Not), giữ nguyên làm 1 phần tử tiền đề
+			flatPremises = append(flatPremises, node)
+		}
+	}
+
+	// Duyệt qua toàn bộ tiền đề hiện tại để làm phẳng
+	for _, premise := range r.Premise {
+		extractAnd(premise)
+	}
+
+	return Logic{
+		Premise:    flatPremises,
+		Conclusion: r.Conclusion,
+	}
+}
