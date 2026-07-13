@@ -3,52 +3,73 @@ package main
 import (
 	"bai-tap-ai/core/config"
 	"bai-tap-ai/core/hooks"
+	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strings"
 )
 
 func main() {
-	graphConfig, err := config.LoadGraphConfig()
+	// 1. Doc file cau hinh mot lan o dau chuong trinh
+	rawConfig, err := config.LoadGraphConfig()
 	if err != nil {
-		fmt.Println("Loi khi doc file cau hinh:", err)
+		fmt.Println("Loi doc file config:", err)
 		return
 	}
-	g, isAnd, h := config.ConvertToCore(graphConfig)
+
+	// 2. Chuyen doi sang kieu du lieu loi
+	g, isAnd, h := config.ConvertToCore(rawConfig)
+
+	// Sinh heuristic tu dong dua tren cau hinh
 	config.GenHeuristic(g, isAnd, h, 1)
-	keys := make([]string, 0, len(h))
-	for k := range h {
-		keys = append(keys, k)
-	}
-	sort.Strings(keys)
 
-	fmt.Println("Bang gia tri Heuristic:")
-	for _, k := range keys {
-		fmt.Printf("%s: %d | ", k, h[k])
-	}
-	fmt.Println()
+	fmt.Println("He thong da khoi dong. Nhap lenh de chay thuat toan.")
+	hooks.PrintHelp()
 
-	args := os.Args[1:]
-	if len(args) < 2 {
-		hooks.PrintHelp()
-		return
-	}
+	// Khoi tao scanner de doc input tu ban phim
+	scanner := bufio.NewScanner(os.Stdin)
 
-	var algo, from, to string
-	if len(args) == 2 {
-		algo, from, to = "all", strings.ToUpper(args[0]), strings.ToUpper(args[1])
-	} else {
-		algo, from, to = strings.ToLower(args[0]), strings.ToUpper(args[1]), strings.ToUpper(args[2])
-	}
-
-	fmt.Printf("--- KET QUA TU %s DEN %s ---\n", from, to)
-	if algo == "all" {
-		algos := []string{"dfs", "bfs", "min"}
-		for _, a := range algos {
-			hooks.RunAlgo(a, g, h, from, to)
+	// 3. Vong lap vo han xu ly tuong tac
+	for {
+		fmt.Print("\n> ")
+		if !scanner.Scan() {
+			break
 		}
-	} else {
-		hooks.RunAlgo(algo, g, h, from, to)
+
+		input := strings.TrimSpace(scanner.Text())
+		if input == "" {
+			continue
+		}
+
+		if strings.ToLower(input) == "q" || strings.ToLower(input) == "quit" {
+			fmt.Println("Ket thuc chuong trinh.")
+			break
+		}
+
+		// Cat chuoi bo qua nhieu khoang trang lien tiep
+		args := strings.Fields(input)
+
+		if len(args) != 3 {
+			if len(args) > 0 && args[0] == "help" {
+				hooks.PrintHelp()
+			} else {
+				fmt.Println("Sai cu phap. Vui long nhap dung 3 tham so: <algo> <from> <to>")
+			}
+			continue
+		}
+
+		algo := strings.ToLower(args[0])
+		from := strings.ToUpper(args[1])
+		to := strings.ToUpper(args[2])
+
+		fmt.Printf("--- KET QUA TU %s DEN %s ---\n", from, to)
+		if algo == "all" {
+			algos := []string{"dfs", "bfs", "min"}
+			for _, a := range algos {
+				hooks.RunAlgo(a, g, h, from, to)
+			}
+		} else {
+			hooks.RunAlgo(algo, g, h, from, to)
+		}
 	}
 }

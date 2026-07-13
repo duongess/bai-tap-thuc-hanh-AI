@@ -14,6 +14,9 @@ func PrintHelp() {
 	fmt.Println("  bfs    : Tim kiem chieu rong (Mu)")
 	fmt.Println("  min    : Greedy Min (Thong minh)")
 	fmt.Println("  all    : Chay tat ca thuat toan")
+	fmt.Println("  Other commands:")
+	fmt.Println("  h/help : Hien thi huong dan")
+	fmt.Println("  q/quit : Thoat khoi chuong trinh")
 }
 
 func RunAlgo(algo string, g types.Graph, h types.Heuristic, from, to string) {
@@ -25,7 +28,12 @@ func RunAlgo(algo string, g types.Graph, h types.Heuristic, from, to string) {
 		res = algorithm.BFS(g, from, to)
 	case "min":
 		res = algorithm.GreedySearch(g, h, from, to, false)
+	case "h", "help":
+		PrintHelp()
+		return
+
 	default:
+		fmt.Println("Sai cu phap. Vui long nhap dung 3 tham so: <algo> <from> <to>")
 		return
 	}
 	fmt.Printf("%-10s: %v\n", strings.ToUpper(algo), res)

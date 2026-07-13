@@ -19,6 +19,7 @@ func GetSortedNeighbors(m map[string]int) []string {
 func GenHeuristic(g types.Graph, isAnd types.IsAnd, h types.Heuristic, c int) {
 	for node := range g {
 		ComputeH(node, g, isAnd, h, c)
+
 	}
 }
 
