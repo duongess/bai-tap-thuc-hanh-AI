@@ -77,6 +77,7 @@ func RunAlgo(algo string, g types.Graph, h types.Heuristic, from, to string, log
 		}
 		fmt.Printf("%-10s: %s\n", strings.ToUpper(algo), result)
 	} else {
+		fmt.Printf("--- KET QUA TU %s DEN %s ---\n", from, to)
 		fmt.Printf("%-10s: %v\n", strings.ToUpper(algo), res)
 	}
 }
