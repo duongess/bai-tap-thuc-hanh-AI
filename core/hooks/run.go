@@ -59,6 +59,9 @@ func RunAlgo(algo string, g types.Graph, h types.Heuristic, from, to string, log
 	case "wa":
 		match = s.RunWangsAlgorithm(logic)
 		logicFlag = true
+	case "r":
+		match = s.RunRobinson(logic)
+		logicFlag = true
 	case "h", "help":
 		PrintHelp()
 		return
