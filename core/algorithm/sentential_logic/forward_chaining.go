@@ -26,7 +26,7 @@ func RunForwardChaining(logic types.Logic) bool {
 	for _, r := range rules {
 		fmt.Printf("  %s\n", r.String())
 	}
-	fmt.Println("-------------------------------------------")
+	fmt.Println("============ THUẬT TOÁN FORWARD CHAINING ============")
 
 	for {
 		var selectedRule *HornRule = nil
@@ -61,13 +61,13 @@ func RunForwardChaining(logic types.Logic) bool {
 		if facts[kl] {
 			fmt.Println("-------------------------------------------")
 			fmt.Printf("Final FACTS: %v\n", getSortedFacts(facts))
-			fmt.Println("Kết luận: Thành công!")
+			fmt.Println("Thành công! Tìm thấy mệnh đề rỗng [].")
 			return true
 		}
 	}
 
 	fmt.Println("-------------------------------------------")
 	fmt.Printf("Final FACTS: %v\n", getSortedFacts(facts))
-	fmt.Println("Kết luận: Không thành công!")
+	fmt.Println("Thất bại! Không tìm thấy mệnh đề rỗng [].")
 	return false
 }
