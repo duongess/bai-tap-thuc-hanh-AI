@@ -17,7 +17,7 @@ func getSortedFacts(facts map[string]bool) []string {
 	return res
 }
 
-func ForwardChaining(logic types.Logic) bool {
+func RunForwardChaining(logic types.Logic) bool {
 	facts, rules := ConvertToHornRules(logic)
 	kl := "i"
 
@@ -61,11 +61,13 @@ func ForwardChaining(logic types.Logic) bool {
 		if facts[kl] {
 			fmt.Println("-------------------------------------------")
 			fmt.Printf("Final FACTS: %v\n", getSortedFacts(facts))
+			fmt.Println("Kết luận: Thành công!")
 			return true
 		}
 	}
 
 	fmt.Println("-------------------------------------------")
 	fmt.Printf("Final FACTS: %v\n", getSortedFacts(facts))
+	fmt.Println("Kết luận: Không thành công!")
 	return false
 }
